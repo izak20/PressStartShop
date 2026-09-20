@@ -70,6 +70,7 @@
     .footer-grid{grid-template-columns:1fr 1fr}
     .horario-grid{grid-template-columns:1fr}
     .product-main-grid>div{grid-column:span 12!important;max-width:100%!important}
+    .product-main-grid{gap:28px!important}
     .hero-title{font-size:42px!important}
   }
   @media (max-width:640px){
@@ -216,7 +217,7 @@
 
   <!-- Breadcrumb -->
   <div style="max-width:1360px;margin:0 auto;width:100%;box-sizing:border-box;padding:22px 32px 0;">
-    <div style="font-size:13px;color:var(--textFaint);display:flex;gap:8px;align-items:center;">
+    <div style="font-size:13px;color:var(--textFaint);display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
       <a href="Main.dc.html" class="footer-link">Inicio</a> <span>/</span>
       <a href="Main.dc.html" class="footer-link">Consolas</a> <span>/</span>
       <span style="color:var(--textMuted);">PlayStation 5 Slim — Edición Digital</span>
@@ -273,7 +274,7 @@
         </div>
       </div>
 
-      <div style="display:flex;align-items:center;gap:18px;">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;">
         <div style="display:flex;align-items:center;border:2px solid var(--border);border-radius:8px;">
           <button type="button" aria-label="Restar cantidad" style="background:transparent;border:none;color:var(--text);font-size:18px;width:42px;height:44px;cursor:pointer;">−</button>
           <span style="width:36px;text-align:center;font-weight:800;">1</span>
@@ -287,7 +288,7 @@
         <button type="button" class="btn-outline" style="flex-grow:1;">Comprar ahora</button>
       </div>
 
-      <div style="display:flex;gap:22px;border-top:1px solid var(--border);margin-top:4px;padding-top:20px;">
+      <div style="display:flex;flex-wrap:wrap;gap:16px 22px;border-top:1px solid var(--border);margin-top:4px;padding-top:20px;">
         <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--textMuted);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="13" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"></rect><path d="M15 10H18.5L21 13.5V16H15V10Z" stroke="currentColor" stroke-width="1.5"></path></svg>
           Envío gratis
@@ -306,11 +307,11 @@
 
   <!-- Tabs -->
   <div style="max-width:1360px;margin:0 auto;width:100%;box-sizing:border-box;padding:64px 32px 0;">
-    <div style="display:flex;gap:32px;border-bottom:1px solid var(--border);">
-      <div class="tab tab-active">Descripción</div>
-      <div class="tab">Especificaciones</div>
-      <div class="tab">Envío y devoluciones</div>
-      <div class="tab">Reseñas (128)</div>
+    <div class="cat-nav-row" style="gap:32px;border-bottom:1px solid var(--border);">
+      <div class="tab tab-active" style="flex-shrink:0;">Descripción</div>
+      <div class="tab" style="flex-shrink:0;">Especificaciones</div>
+      <div class="tab" style="flex-shrink:0;">Envío y devoluciones</div>
+      <div class="tab" style="flex-shrink:0;">Reseñas (128)</div>
     </div>
     <div style="padding:28px 0;max-width:760px;">
       <p style="font-size:14px;line-height:1.75;color:var(--textMuted);margin:0 0 14px;">La consola PlayStation 5 Slim, edición digital, ofrece la misma potencia gráfica de la generación en un chasis un 30% más compacto. Incluye control DualSense inalámbrico, cable HDMI de alta velocidad y soporte para carga en base vertical.</p>
