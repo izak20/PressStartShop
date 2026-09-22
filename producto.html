@@ -13,8 +13,8 @@
 <x-dc>
 <helmet>
 <style>
-  body{margin:0;font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  html{overflow-x:hidden}
+  body{margin:0;font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+  html{overflow-x:clip}
   h1,h2,h3,.font-display{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.01em}
   a{color:inherit;text-decoration:none}
   .navlink{color:var(--textMuted);font-weight:700;font-size:14px;letter-spacing:.02em;transition:color .15s}
@@ -74,15 +74,19 @@
     .hero-title{font-size:42px!important}
   }
   @media (max-width:640px){
-    .grid-cards{grid-template-columns:1fr}
+    .grid-cards,.plat-grid{display:flex;flex-wrap:nowrap;grid-template-columns:none;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:2px 16px 10px;gap:12px}
+    .grid-cards::-webkit-scrollbar,.plat-grid::-webkit-scrollbar{display:none}
+    .grid-cards>*,.plat-grid>*{flex:0 0 calc(50% - 6px);min-width:0;scroll-snap-align:start}
     .trust-grid{grid-template-columns:1fr}
-    .plat-grid{grid-template-columns:1fr}
     .bento-grid{grid-template-columns:1fr}
     .footer-grid{grid-template-columns:1fr}
     .header-row{gap:14px}
     .search-bar{order:3;flex-basis:100%;margin-top:8px}
     .hero-title{font-size:32px!important}
     .cat-nav-row{gap:22px}
+    .announce-bar{padding-top:7px!important;padding-bottom:7px!important}
+    .announce-links{display:none!important}
+    .announce-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   }
   @media (max-width:900px){
     [style*="max-width:1360px"]{padding-left:24px!important;padding-right:24px!important}
@@ -100,9 +104,9 @@
 
   <!-- Announcement bar -->
   <div style="width:100%;background:var(--bgAlt);border-bottom:1px solid var(--border);">
-    <div style="max-width:1360px;margin:0 auto;padding:9px 32px;display:flex;justify-content:space-between;align-items:center;">
-      <div style="font-size:13px;color:var(--textMuted);">Envío gratis en pedidos sobre $50.000 · Retiro en tienda, Santiago Centro</div>
-      <div style="display:flex;gap:20px;">
+    <div class="announce-bar" style="max-width:1360px;margin:0 auto;padding:9px 32px;display:flex;justify-content:space-between;align-items:center;">
+      <div class="announce-text" style="font-size:13px;color:var(--textMuted);">Envío gratis en pedidos sobre $50.000 · Retiro en tienda, Santiago Centro</div>
+      <div class="announce-links" style="display:flex;gap:20px;">
         <a href="#" class="footer-link" style="font-size:13px;">Ayuda</a>
         <a href="#" class="footer-link" style="font-size:13px;">Ingresar</a>
         <a href="#" class="footer-link" style="font-size:13px;">Crear cuenta</a>
@@ -114,7 +118,7 @@
   <!-- Header -->
   <div style="width:100%;border-bottom:1px solid var(--border);">
     <div class="header-row" style="max-width:1360px;margin:0 auto;padding:18px 32px;">
-      <a href="Main.dc.html" style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
         <img src="./assets/60ef505c2b9bba59a21524d4ef81a6c5.png" alt="Press Start" style="height:46px;width:46px;object-fit:cover;border-radius:8px;border:2px solid var(--borderStrong);">
         <div>
           <div class="font-display" style="font-size:21px;line-height:1;">Press Start</div>
@@ -154,13 +158,15 @@
   <div style="width:100%;background:var(--bgAlt);border-bottom:1px solid var(--border);">
     <div class="cat-nav-row" style="max-width:1360px;margin:0 auto;padding:14px 32px;">
 
+     <div class="cat-nav-main" style="display:flex;align-items:center;gap:34px;">
+
       <div class="nav-item">
         <button type="button" class="navlink nav-trigger" style="color:var(--text);" onClick="{{toggleConsolas}}">Consolas
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </button>
         <sc-if value="{{openConsolas}}">
           <div class="nav-dropdown">
-            <a href="Product.dc.html" class="dropdown-link">PlayStation 5</a>
+            <a href="producto.html" class="dropdown-link">PlayStation 5</a>
             <a href="#" class="dropdown-link">PlayStation 4</a>
             <a href="#" class="dropdown-link">Nintendo Switch 2</a>
             <a href="#" class="dropdown-link">Xbox Series</a>
@@ -209,8 +215,13 @@
         </sc-if>
       </div>
 
+     </div>
+
+     <div class="cat-nav-highlights" style="display:flex;align-items:center;gap:24px;margin-left:auto;padding-left:24px;border-left:1px solid var(--border);flex-shrink:0;">
       <a href="#" class="navlink" style="color:var(--success);">Ofertas</a>
       <a href="#" class="navlink" style="color:var(--accent);">Preventas</a>
+     </div>
+
     </div>
   </div>
   </div>
@@ -218,8 +229,8 @@
   <!-- Breadcrumb -->
   <div style="max-width:1360px;margin:0 auto;width:100%;box-sizing:border-box;padding:22px 32px 0;">
     <div style="font-size:13px;color:var(--textFaint);display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
-      <a href="Main.dc.html" class="footer-link">Inicio</a> <span>/</span>
-      <a href="Main.dc.html" class="footer-link">Consolas</a> <span>/</span>
+      <a href="index.html" class="footer-link">Inicio</a> <span>/</span>
+      <a href="index.html" class="footer-link">Consolas</a> <span>/</span>
       <span style="color:var(--textMuted);">PlayStation 5 Slim — Edición Digital</span>
     </div>
   </div>
@@ -329,7 +340,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" style="color:var(--textFaint);"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"></rect><circle cx="8.5" cy="9.5" r="1.5" stroke="currentColor" stroke-width="1.4"></circle><path d="M21 15L16 10L5 20" stroke="currentColor" stroke-width="1.5"></path></svg>
         </div>
         <div style="padding:16px;display:flex;flex-direction:column;gap:8px;">
-          <a href="Product.dc.html" style="font-size:15px;font-weight:700;">Control DualSense — Midnight Black</a>
+          <a href="producto.html" style="font-size:15px;font-weight:700;">Control DualSense — Midnight Black</a>
           <div style="font-size:16px;font-weight:800;">$59.990</div>
         </div>
       </div>
@@ -339,7 +350,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" style="color:var(--textFaint);"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"></rect><circle cx="8.5" cy="9.5" r="1.5" stroke="currentColor" stroke-width="1.4"></circle><path d="M21 15L16 10L5 20" stroke="currentColor" stroke-width="1.5"></path></svg>
         </div>
         <div style="padding:16px;display:flex;flex-direction:column;gap:8px;">
-          <a href="Product.dc.html" style="font-size:15px;font-weight:700;">Base de carga vertical PS5</a>
+          <a href="producto.html" style="font-size:15px;font-weight:700;">Base de carga vertical PS5</a>
           <div style="font-size:16px;font-weight:800;">$24.990</div>
         </div>
       </div>
@@ -349,7 +360,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" style="color:var(--textFaint);"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"></rect><circle cx="8.5" cy="9.5" r="1.5" stroke="currentColor" stroke-width="1.4"></circle><path d="M21 15L16 10L5 20" stroke="currentColor" stroke-width="1.5"></path></svg>
         </div>
         <div style="padding:16px;display:flex;flex-direction:column;gap:8px;">
-          <a href="Product.dc.html" style="font-size:15px;font-weight:700;">SSD NVMe 1TB con disipador</a>
+          <a href="producto.html" style="font-size:15px;font-weight:700;">SSD NVMe 1TB con disipador</a>
           <div style="font-size:16px;font-weight:800;">$79.990</div>
         </div>
       </div>
@@ -359,7 +370,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" style="color:var(--textFaint);"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"></rect><circle cx="8.5" cy="9.5" r="1.5" stroke="currentColor" stroke-width="1.4"></circle><path d="M21 15L16 10L5 20" stroke="currentColor" stroke-width="1.5"></path></svg>
         </div>
         <div style="padding:16px;display:flex;flex-direction:column;gap:8px;">
-          <a href="Product.dc.html" style="font-size:15px;font-weight:700;">Headset ProGamer X7</a>
+          <a href="producto.html" style="font-size:15px;font-weight:700;">Headset ProGamer X7</a>
           <div style="font-size:16px;font-weight:800;">$44.990</div>
         </div>
       </div>
@@ -376,7 +387,7 @@
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;">
         <div style="font-size:12px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;">Tienda</div>
-        <a href="Main.dc.html" class="footer-link">Consolas</a>
+        <a href="index.html" class="footer-link">Consolas</a>
         <a href="#" class="footer-link">Juegos</a>
         <a href="#" class="footer-link">Accesorios</a>
         <a href="#" class="footer-link">Ofertas</a>

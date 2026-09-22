@@ -1,33 +1,24 @@
-# Inicio — design reference
+# Press Start Shop
 
-This is a design mockup created in a visual design tool (an appifact
-design canvas), exported as a standalone page. Treat it as a REFERENCE
-MOCKUP, not production code: the markup and inline styles carry the
-design's precise values — colors, font sizes, spacing, radii, shadows,
-layout — which an implementation should replicate faithfully in its own
-components and styling system rather than copy wholesale.
+Mockup de diseño para una tienda de videojuegos, consolas y accesorios.
+Exportado desde una herramienta de diseño visual (formato Design Component /
+`<x-dc>`). Tratar el markup como referencia de diseño: los valores exactos
+(colores, tipografías, espaciados) viven en los atributos `style="…"` y en
+el bloque `<helmet><style>` de cada página.
 
-## Contents
+## Estructura
 
-- `Main.dc.html` — the artboard (a Design Component: an `<x-dc>`
-  template + a small logic class). The values to replicate live in its
-  inline `style="…"` attributes and the `<helmet><style>` block.
-- `assets/` — files uploaded to the design (images, fonts, media)
-- `support.js`, `vendor/react*.js` — the runtime that renders the
-  component in a browser; not part of the design.
+- `index.html` — página de Inicio.
+- `producto.html` — página de detalle de producto (PS5 Slim).
+- `assets/` — imágenes usadas por ambas páginas.
+- `support.js`, `vendor/react.js`, `vendor/react-dom.js` — runtime que
+  renderiza el componente en el navegador; no es parte del diseño.
 
-## Uploaded files
+## Ver el sitio
 
-Images, fonts and media uploaded to the design are written once each under
-`assets/` — 1 in this export — and the exported files refer to them there. A
-reference a script puts together while the page runs (for example
-`"/_blob/" + id`) is not rewritten and does not load from this folder.
+Servir la carpeta con un servidor estático (algunos navegadores bloquean
+los scripts sobre `file://`) y abrir `index.html`:
 
-## Viewing
-
-Serve the folder (e.g. `python3 -m http.server`) and open `Main.dc.html`;
-some browsers block the scripts over file://.
-# PressStartShop
-# PressStartShop
-# PressStartShop
-# PressStartShop
+```bash
+python3 -m http.server
+```
