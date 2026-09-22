@@ -57,6 +57,11 @@
   .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
   .horario-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
   .hero-title{font-size:60px;line-height:1.02}
+  @keyframes heroFadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes heroContentIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .hero-media{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;animation:heroFadeIn .7s ease}
+  .hero-media-placeholder{background-image:radial-gradient(rgba(255,255,255,0.22) 1.8px, transparent 1.8px);background-size:16px 16px;background-color:#1B1B1E}
+  .hero-slide-content{animation:heroContentIn .6s ease}
   .header-row{display:flex;align-items:center;gap:36px;flex-wrap:wrap}
   .search-bar{flex-grow:1;min-width:180px;display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0 6px 0 16px;height:46px}
   .cat-nav-row{display:flex;gap:34px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -87,7 +92,7 @@
     .announce-links{display:none!important}
     .announce-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .hero-banner{clip-path:none!important;min-height:0!important;display:flex!important;flex-direction:column!important}
-    .hero-media{display:block!important;width:100%;height:230px;flex-shrink:0}
+    .hero-media{position:static!important;width:100%;height:230px;flex-shrink:0}
     .hero-overlay,.hero-note{display:none!important}
     .hero-inner{position:static!important;z-index:2;height:auto!important;padding-top:22px!important;padding-bottom:28px!important;background:var(--bg)}
     .hero-title{font-size:28px!important;color:var(--text)!important;max-width:none!important}
@@ -238,43 +243,99 @@
   </div>
   </div>
 
-  <!-- Hero: banner de imagen completa, estilo carrusel -->
-  <div class="hero-banner" style="position:relative;width:100%;min-height:480px;clip-path:polygon(0 0,100% 0,100% 91%,0 100%);background:var(--bgAlt);background-image:url('assets/zeldabanner.png');background-size:cover;background-position:center;background-repeat:no-repeat;overflow:hidden;">
-    <div class="hero-media" style="display:none;background-image:url('assets/zeldabanner.png');background-size:cover;background-position:center 25%;background-repeat:no-repeat;"></div>
+  <!-- Hero: banner con carrusel funcional de 4 slides -->
+  <div class="hero-banner" style="position:relative;width:100%;min-height:480px;clip-path:polygon(0 0,100% 0,100% 91%,0 100%);background:var(--bgAlt);overflow:hidden;">
+
+    <sc-if value="{{heroSlide===0}}">
+      <div class="hero-media" style="background-image:url('assets/zeldabanner.png');"></div>
+    </sc-if>
+    <sc-if value="{{heroSlide===1}}">
+      <div class="hero-media hero-media-placeholder"></div>
+    </sc-if>
+    <sc-if value="{{heroSlide===2}}">
+      <div class="hero-media hero-media-placeholder"></div>
+    </sc-if>
+    <sc-if value="{{heroSlide===3}}">
+      <div class="hero-media hero-media-placeholder"></div>
+    </sc-if>
+
     <div class="hero-overlay" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0) 65%);"></div>
-    <span class="hero-note" style="position:absolute;bottom:64px;right:32px;font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,0.55);z-index:1;">[ arte de fondo del banner — ej. key art de Zelda ocarina of time ]</span>
 
     <div class="hero-inner" style="position:relative;z-index:1;max-width:1360px;margin:0 auto;padding:64px 32px 0;height:100%;">
-      <div class="tag tag-preventa" style="width:fit-content;">Preventa abierta</div>
-      <h1 class="font-display hero-title" style="margin:18px 0 0;color:#FFFFFF;max-width:640px;">THE LEGEND OF ZELDA<br><span style="background:var(--accent);color:var(--onAccent);padding:2px 12px;display:inline-block;">OCARINA OF TIME</span></h1>
-      <p class="hero-desc" style="margin:16px 0 0;font-size:15px;line-height:1.6;color:rgba(255,255,255,0.82);max-width:420px;">Reserva ahora con el 20% de descuento en preventa. Incluye contenido exclusivo de día uno.</p>
 
-      <div class="font-display hero-countdown" style="margin-top:26px;display:flex;align-items:baseline;gap:8px;color:#FFFFFF;">
-        <span style="font-size:32px;">04</span><span style="font-size:14px;opacity:.65;font-family:'Manrope',sans-serif;">d</span>
-        <span style="opacity:.5;">:</span>
-        <span style="font-size:32px;">13</span><span style="font-size:14px;opacity:.65;font-family:'Manrope',sans-serif;">h</span>
-        <span style="opacity:.5;">:</span>
-        <span style="font-size:32px;">47</span><span style="font-size:14px;opacity:.65;font-family:'Manrope',sans-serif;">m</span>
-      </div>
+      <sc-if value="{{heroSlide===0}}">
+       <div class="hero-slide-content">
+        <div class="tag tag-preventa" style="width:fit-content;">Preventa abierta</div>
+        <h1 class="font-display hero-title" style="margin:18px 0 0;color:#FFFFFF;max-width:640px;">THE LEGEND OF ZELDA<br><span style="background:var(--accent);color:var(--onAccent);padding:2px 12px;display:inline-block;">OCARINA OF TIME</span></h1>
+        <p class="hero-desc" style="margin:16px 0 0;font-size:15px;line-height:1.6;color:rgba(255,255,255,0.82);max-width:420px;">Reserva ahora con el 20% de descuento en preventa. Incluye contenido exclusivo de día uno.</p>
+        <div class="font-display hero-countdown" style="margin-top:26px;display:flex;align-items:baseline;gap:8px;color:#FFFFFF;">
+          <span style="font-size:32px;">04</span><span style="font-size:14px;opacity:.65;font-family:'Manrope',sans-serif;">d</span>
+          <span style="opacity:.5;">:</span>
+          <span style="font-size:32px;">13</span><span style="font-size:14px;opacity:.65;font-family:'Manrope',sans-serif;">h</span>
+          <span style="opacity:.5;">:</span>
+          <span style="font-size:32px;">47</span><span style="font-size:14px;opacity:.65;font-family:'Manrope',sans-serif;">m</span>
+        </div>
+        <div class="hero-cta" style="display:flex;gap:14px;align-items:center;margin-top:26px;">
+          <button type="button" class="btn-primary">Reservar ahora — $34.990</button>
+          <a href="#" class="hero-cta-link" style="color:#FFFFFF;font-weight:700;font-size:14px;">Ver todas las preventas →</a>
+        </div>
+       </div>
+      </sc-if>
 
-      <div class="hero-cta" style="display:flex;gap:14px;align-items:center;margin-top:26px;">
-        <button type="button" class="btn-primary">Reservar ahora — $34.990</button>
-        <a href="#" class="hero-cta-link" style="color:#FFFFFF;font-weight:700;font-size:14px;">Ver todas las preventas →</a>
-      </div>
+      <sc-if value="{{heroSlide===1}}">
+       <div class="hero-slide-content">
+        <div class="tag" style="width:fit-content;background:var(--accent);color:var(--onAccent);">Próximamente</div>
+        <h1 class="font-display hero-title" style="margin:18px 0 0;color:#FFFFFF;max-width:640px;">[ SLIDE 2 — TÍTULO DE LA PROMOCIÓN ]</h1>
+        <p class="hero-desc" style="margin:16px 0 0;font-size:15px;line-height:1.6;color:rgba(255,255,255,0.82);max-width:420px;">[ espacio para la imagen y el texto de tu próxima campaña — reemplaza este contenido cuando lo tengas listo ]</p>
+        <div class="hero-cta" style="display:flex;gap:14px;align-items:center;margin-top:26px;">
+          <button type="button" class="btn-primary">Ver más</button>
+        </div>
+       </div>
+      </sc-if>
+
+      <sc-if value="{{heroSlide===2}}">
+       <div class="hero-slide-content">
+        <div class="tag" style="width:fit-content;background:var(--success);color:#FFFFFF;">Nuevo</div>
+        <h1 class="font-display hero-title" style="margin:18px 0 0;color:#FFFFFF;max-width:640px;">[ SLIDE 3 — TÍTULO DE LA PROMOCIÓN ]</h1>
+        <p class="hero-desc" style="margin:16px 0 0;font-size:15px;line-height:1.6;color:rgba(255,255,255,0.82);max-width:420px;">[ espacio para la imagen y el texto de tu próxima campaña — reemplaza este contenido cuando lo tengas listo ]</p>
+        <div class="hero-cta" style="display:flex;gap:14px;align-items:center;margin-top:26px;">
+          <button type="button" class="btn-primary">Ver más</button>
+        </div>
+       </div>
+      </sc-if>
+
+      <sc-if value="{{heroSlide===3}}">
+       <div class="hero-slide-content">
+        <div class="tag" style="width:fit-content;background:#F2B705;color:#171512;">Oferta</div>
+        <h1 class="font-display hero-title" style="margin:18px 0 0;color:#FFFFFF;max-width:640px;">[ SLIDE 4 — TÍTULO DE LA PROMOCIÓN ]</h1>
+        <p class="hero-desc" style="margin:16px 0 0;font-size:15px;line-height:1.6;color:rgba(255,255,255,0.82);max-width:420px;">[ espacio para la imagen y el texto de tu próxima campaña — reemplaza este contenido cuando lo tengas listo ]</p>
+        <div class="hero-cta" style="display:flex;gap:14px;align-items:center;margin-top:26px;">
+          <button type="button" class="btn-primary">Ver más</button>
+        </div>
+       </div>
+      </sc-if>
+
     </div>
 
-    <button type="button" aria-label="Slide anterior" class="hero-nav hero-nav-prev" style="position:absolute;left:22px;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:999px;border:1.5px solid rgba(255,255,255,0.5);background:rgba(0,0,0,0.25);color:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1;">
+    <button type="button" aria-label="Slide anterior" class="hero-nav hero-nav-prev" onClick="{{heroPrev}}" style="position:absolute;left:22px;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:999px;border:1.5px solid rgba(255,255,255,0.5);background:rgba(0,0,0,0.25);color:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
     </button>
-    <button type="button" aria-label="Siguiente slide" class="hero-nav hero-nav-next" style="position:absolute;right:22px;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:999px;border:1.5px solid rgba(255,255,255,0.5);background:rgba(0,0,0,0.25);color:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1;">
+    <button type="button" aria-label="Siguiente slide" class="hero-nav hero-nav-next" onClick="{{heroNext}}" style="position:absolute;right:22px;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:999px;border:1.5px solid rgba(255,255,255,0.5);background:rgba(0,0,0,0.25);color:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
     </button>
 
     <div class="hero-dots" style="position:absolute;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:1;">
-      <span style="width:22px;height:4px;border-radius:2px;background:var(--accent);display:block;"></span>
-      <span style="width:10px;height:4px;border-radius:2px;background:rgba(255,255,255,0.5);display:block;"></span>
-      <span style="width:10px;height:4px;border-radius:2px;background:rgba(255,255,255,0.5);display:block;"></span>
-      <span style="width:10px;height:4px;border-radius:2px;background:rgba(255,255,255,0.5);display:block;"></span>
+      <sc-if value="{{heroSlide===0}}"><button type="button" aria-label="Ir al slide 1" onClick="{{heroGoTo0}}" style="width:22px;height:4px;border-radius:2px;background:var(--accent);border:none;padding:0;cursor:pointer;display:block;"></button></sc-if>
+      <sc-if value="{{heroSlide!==0}}"><button type="button" aria-label="Ir al slide 1" onClick="{{heroGoTo0}}" style="width:10px;height:4px;border-radius:2px;background:rgba(255,255,255,0.5);border:none;padding:0;cursor:pointer;display:block;"></button></sc-if>
+
+      <sc-if value="{{heroSlide===1}}"><button type="button" aria-label="Ir al slide 2" onClick="{{heroGoTo1}}" style="width:22px;height:4px;border-radius:2px;background:var(--accent);border:none;padding:0;cursor:pointer;display:block;"></button></sc-if>
+      <sc-if value="{{heroSlide!==1}}"><button type="button" aria-label="Ir al slide 2" onClick="{{heroGoTo1}}" style="width:10px;height:4px;border-radius:2px;background:rgba(255,255,255,0.5);border:none;padding:0;cursor:pointer;display:block;"></button></sc-if>
+
+      <sc-if value="{{heroSlide===2}}"><button type="button" aria-label="Ir al slide 3" onClick="{{heroGoTo2}}" style="width:22px;height:4px;border-radius:2px;background:var(--accent);border:none;padding:0;cursor:pointer;display:block;"></button></sc-if>
+      <sc-if value="{{heroSlide!==2}}"><button type="button" aria-label="Ir al slide 3" onClick="{{heroGoTo2}}" style="width:10px;height:4px;border-radius:2px;background:rgba(255,255,255,0.5);border:none;padding:0;cursor:pointer;display:block;"></button></sc-if>
+
+      <sc-if value="{{heroSlide===3}}"><button type="button" aria-label="Ir al slide 4" onClick="{{heroGoTo3}}" style="width:22px;height:4px;border-radius:2px;background:var(--accent);border:none;padding:0;cursor:pointer;display:block;"></button></sc-if>
+      <sc-if value="{{heroSlide!==3}}"><button type="button" aria-label="Ir al slide 4" onClick="{{heroGoTo3}}" style="width:10px;height:4px;border-radius:2px;background:rgba(255,255,255,0.5);border:none;padding:0;cursor:pointer;display:block;"></button></sc-if>
     </div>
   </div>
 
@@ -695,13 +756,43 @@
 class Component extends DCLogic {
   constructor(props){
     super(props);
-    this.state = { theme: (props && props.theme) || 'dark', openConsolas:false, openJuegos:false, openAccesorios:false, openColeccionables:false };
+    this.state = { theme: (props && props.theme) || 'dark', openConsolas:false, openJuegos:false, openAccesorios:false, openColeccionables:false, heroSlide:0 };
     this.toggleTheme = this.toggleTheme.bind(this);
     this.toggleConsolas = this.toggleConsolas.bind(this);
     this.toggleJuegos = this.toggleJuegos.bind(this);
     this.toggleAccesorios = this.toggleAccesorios.bind(this);
     this.toggleColeccionables = this.toggleColeccionables.bind(this);
+    this.heroPrev = this.heroPrev.bind(this);
+    this.heroNext = this.heroNext.bind(this);
+    this.heroGoTo0 = this.heroGoTo0.bind(this);
+    this.heroGoTo1 = this.heroGoTo1.bind(this);
+    this.heroGoTo2 = this.heroGoTo2.bind(this);
+    this.heroGoTo3 = this.heroGoTo3.bind(this);
   }
+  componentDidMount(){
+    this.heroStartAutoplay();
+  }
+  componentWillUnmount(){
+    clearInterval(this.heroTimer);
+  }
+  heroStartAutoplay(){
+    clearInterval(this.heroTimer);
+    this.heroTimer = setInterval(() => {
+      this.setState({ heroSlide: (this.state.heroSlide + 1) % 4 });
+    }, 6000);
+  }
+  heroPrev(){
+    this.setState({ heroSlide: (this.state.heroSlide + 3) % 4 });
+    this.heroStartAutoplay();
+  }
+  heroNext(){
+    this.setState({ heroSlide: (this.state.heroSlide + 1) % 4 });
+    this.heroStartAutoplay();
+  }
+  heroGoTo0(){ this.setState({ heroSlide: 0 }); this.heroStartAutoplay(); }
+  heroGoTo1(){ this.setState({ heroSlide: 1 }); this.heroStartAutoplay(); }
+  heroGoTo2(){ this.setState({ heroSlide: 2 }); this.heroStartAutoplay(); }
+  heroGoTo3(){ this.setState({ heroSlide: 3 }); this.heroStartAutoplay(); }
   toggleTheme(){
     this.setState({ theme: this.state.theme === 'dark' ? 'light' : 'dark' });
   }
@@ -738,7 +829,9 @@ class Component extends DCLogic {
       openConsolas: this.state.openConsolas, openJuegos: this.state.openJuegos,
       openAccesorios: this.state.openAccesorios, openColeccionables: this.state.openColeccionables,
       toggleConsolas: this.toggleConsolas, toggleJuegos: this.toggleJuegos,
-      toggleAccesorios: this.toggleAccesorios, toggleColeccionables: this.toggleColeccionables
+      toggleAccesorios: this.toggleAccesorios, toggleColeccionables: this.toggleColeccionables,
+      heroSlide: this.state.heroSlide, heroPrev: this.heroPrev, heroNext: this.heroNext,
+      heroGoTo0: this.heroGoTo0, heroGoTo1: this.heroGoTo1, heroGoTo2: this.heroGoTo2, heroGoTo3: this.heroGoTo3
     };
   }
 }
